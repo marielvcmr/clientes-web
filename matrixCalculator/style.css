@@ -105,9 +105,56 @@
 #result-tab
 {
     display: flex;
-    flex-direction: column;
-    align-items: center; 
+    align-items: center;
+    justify-content:center;
     min-width: 700px;
     width: 100%;
-    
+}
+
+#result-btn
+{
+    height: 50px;
+    width: 150px;
+}
+
+.matrix-flex
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.matrix-grid
+{
+    background-color: #bbbbbb;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 5px;
+    justify-items: center;
+    align-items: center;
+
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid black 1px;
+    border-top: transparent;
+    border-left: transparent;
+
+}
+
+#operands-flex
+{
+    margin-top: 50px;
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+#operator
+{
+    font-size: 25px;
+    font-weight: 800;
+    justify-self: center;
 }

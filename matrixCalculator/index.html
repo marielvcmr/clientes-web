@@ -43,8 +43,32 @@
                     <button class= "btn" id="reset-btn">Resetear entradas</button>
                 </div>
 
-                <div class = "operands-container">
-                    <!-- holding space for the matrices-->
+                <div id = "operands-flex">
+
+                    <div class = "matrix-flex" id = "operand-A">
+                        <label for="result-grid" style = "font-family: sans-serif; font-size: small; font-weight: 550;">Matriz A</label>
+                        <div id = "result-grid" class = "matrix-grid">
+
+                            <input type="text" class="input-number" value = 2>
+                            <input type="text" class="input-number" value = 2>
+                            <input type="text" class="input-number" value = 2>
+                            <input type="text" class="input-number" value = 2>
+                        </div>
+                    </div>
+
+                    <label id = "operator">+</label>
+
+                    <div class = "matrix-flex" id = "operand-B">
+                        <label for="result-grid" style = "font-family: sans-serif; font-size: small; font-weight: 550;">Matriz B</label>
+                        <div id = "result-grid" class = "matrix-grid">
+
+                            <input type="text" class="input-number" value = 2>
+                            <input type="text" class="input-number" value = 2>
+                            <input type="text" class="input-number" value = 2>
+                            <input type="text" class="input-number" value = 2>
+                        </div>
+                    </div>
+            
                 </div>
 
             </div>
@@ -55,7 +79,24 @@
 
 
 
-            <div class = "content-tabs horizontal-tabs" style = "grid-area: box-3" id = "result-tab">op</div>
+            <div class = "content-tabs horizontal-tabs" style = "grid-area: box-3" id = "result-tab">
+
+                <button class= "btn" id="result-btn"> Calcular resultado</button>
+
+                <div class = "matrix-flex"> 
+                    <label for="result-grid" style = "font-family: sans-serif; font-size: small; font-weight: 550;">Resultado A + B</label>
+
+                    <div id = "result-grid" class = "matrix-grid">
+
+                        <input type="text" class="input-number" value = 2>
+                        <input type="text" class="input-number" value = 2>
+                        <input type="text" class="input-number" value = 2>
+                        <input type="text" class="input-number" value = 2>
+
+                    </div>
+                </div>
+
+            </div>
 
         </div>
     </div>
