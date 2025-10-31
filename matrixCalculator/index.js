@@ -2,8 +2,17 @@ const dimInput = document.getElementById('matrix-dim');
 const genBtn = document.getElementById('generar-matrix-btn');
 const resetBtn = document.getElementById('reset-btn');
 
+const sumBtn = document.getElementById('suma-btn');
+const restaBtn = document.getElementById('resta-btn');
+const multBtn = document.getElementById('mult-btn');
+const multEscalarBtn = document.getElementById('mult-escalar-btn');
+const trasBtn = document.getElementById('tras-btn');
+const detBtn = document.getElementById('det-btn');
+const invBtn = document.getElementById('inv-btn');
+const idBtn = document.getElementById('id-btn');
 
 const operandAGrid = document.getElementById('operand-A-grid');
+const operandA = document.getElementById('operand-A');
 const operandBGrid = document.getElementById('operand-B-grid');
 const operandBlabel = document.getElementById('op-B-label');
 const operandB = document.getElementById('operand-B');
@@ -196,14 +205,18 @@ genBtn.addEventListener('click', () => {
 	});
 });
 
-function sumaLayout()
+sumBtn.addEventListener('click', ()=>
 {
 	currentMode = 'default';
 	currentOperation = 'Suma';
 	alterGrids()
-}
+	operatorLabel.textContent = '+';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontWeight = 800;
+	resultLabel.textContent = 'A + B ';
+});
 
-function restaLayout()
+restaBtn.addEventListener('click', ()=>
 {
 	currentMode = 'default';
 	currentOperation = 'Resta';
@@ -212,9 +225,9 @@ function restaLayout()
 	operatorLabel.style.fontSize = '25px';
 	operatorLabel.style.fontWeight = 800;
 	resultLabel.textContent = 'A - B ';
-}
+});
 
-function multiplicacionLayout()
+multBtn.addEventListener('click', ()=>
 {
 	currentMode = 'default';
 	currentOperation = 'Multiplicacion';
@@ -224,9 +237,9 @@ function multiplicacionLayout()
 	operatorLabel.style.fontFamily = 'Arial Black';
 	operatorLabel.style.fontWeight = 200;
 	resultLabel.textContent = 'A x B ';
-}
+});
 
-function multiplicacionEscalarLayout()
+multEscalarBtn.addEventListener('click', ()=>
 {
 	currentMode = 'scalar';
 	currentOperation = 'Multiplicacion Escalar';
@@ -236,9 +249,9 @@ function multiplicacionEscalarLayout()
 	operatorLabel.style.fontFamily = 'Arial Black';
 	operatorLabel.style.fontWeight = 200;
 	resultLabel.textContent = 'A x B ';
-}
+});
 
-function transpuestaLayout()
+trasBtn.addEventListener('click', ()=>
 {
 	currentMode = 'single';
 	currentOperation = 'Transpuesta';
@@ -247,20 +260,20 @@ function transpuestaLayout()
 	operatorLabel.style.fontSize = '25px';
 	operatorLabel.style.fontFamily = 'Arial Black';
 	resultLabel.textContent = 'Aᵀ';
-}
+});
 
-function determinanteLayout()
+detBtn.addEventListener('click', ()=>
 {
 	currentMode = 'det';
-	currentOperation = 'Transpuesta';
+	currentOperation = 'Determinante';
 	alterGrids();
 	operatorLabel.textContent = '';	
 	operatorLabel.style.fontSize = '25px';
 	operatorLabel.style.fontFamily = 'Arial Black';
 	resultLabel.textContent = 'Det (A)';
-}
+});
 
-function inversaLayout()
+invBtn.addEventListener('click', ()=>
 {
 	currentMode = 'single';
 	currentOperation = 'Inversa';
@@ -269,17 +282,15 @@ function inversaLayout()
 	operatorLabel.style.fontSize = '25px';
 	operatorLabel.style.fontFamily = 'Arial Black';
 	resultLabel.textContent = 'A⁻¹';
-}
+});
 
-function identidadLayout()
+idBtn.addEventListener('click', ()=>
 {
-	currentMode = 'single';
+	currentMode = 'unity';
 	currentOperation = 'Identidad';
 	alterGrids();
 	operatorLabel.textContent = '';	
 	operatorLabel.style.fontSize = '25px';
 	operatorLabel.style.fontFamily = 'Arial Black';
 	resultLabel.textContent = 'I';
-}
-
-identidadLayout();
+});
