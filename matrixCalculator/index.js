@@ -86,7 +86,7 @@ function alterGrids(n = currentSize) {
 		    	wrapper.style.justifyContent = 'center';
 		    	const input = document.createElement('input');
 		    	input.type = 'text';
-		    	input.className = 'input-number';
+		    	input.className = 'input-number matrix-entry';
 		    	input.style.width = '50px';
                 input.style.height = '50px'
 		    	wrapper.appendChild(input);
@@ -127,12 +127,25 @@ function alterGrids(n = currentSize) {
 		    /* if  grid was not operand-B in scalar or result in  det
                 the grid is filled with input cells as a matrix
             */
-		    for (let i = 0; i < n * n; i++) {
+		   if(grid === resultGrid)
+		   {
+			for (let i = 0; i < n * n; i++) {
 		    	const input = document.createElement('input');
 		    	input.type = 'text';
 		    	input.className = 'input-number';
 		    	grid.appendChild(input);
 		    }
+		   }
+		   else 
+		   {
+			for (let i = 0; i < n * n; i++) {
+		    	const input = document.createElement('input');
+		    	input.type = 'text';
+		    	input.className = 'input-number matrix-entry';
+		    	grid.appendChild(input);
+		    }
+		   }
+		   return;
 	});
 }
 
@@ -167,5 +180,15 @@ dimInput.addEventListener('keydown', (event)=>{
 		event.preventDefault();
 		applyDimensionFromInput();
 	}
+});
 
+resetBtn.addEventListener('click', () => {
+	applyDimensionFromInput();
+});
+genBtn.addEventListener('click', () => {
+	const matrixEntries = document.querySelectorAll('.matrix-entry');
+	
+	matrixEntries.forEach(entry => {
+		entry.value = String(Math.floor(Math.random() * 21)-10);
+	});
 });
