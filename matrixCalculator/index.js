@@ -381,6 +381,55 @@ function writeMatrixToGrid(grid, matrix)
 	}
 }
 
+function determinanteGaussJordan(matrix) {
+  const n = matrix.length;
+  //copy
+  const A = matrix.map(row => row.slice());
+  let det = 1;
+
+  for (let i = 0; i < n; i++) {
+    // Find pivot
+    let pivotRow = i;
+    for (let j = i + 1; j < n; j++) {
+      if (Math.abs(A[j][i]) > Math.abs(A[pivotRow][i])) {
+        pivotRow = j;
+      }
+    }
+
+    // Zero pivot, determinant is zero
+    if (A[pivotRow][i] === 0) return 0;
+
+    // Swap rows if needed
+    if (pivotRow !== i) {
+      [A[i], A[pivotRow]] = [A[pivotRow], A[i]];
+      det *= -1; // Row swap changes sign
+    }
+
+    // Multiply det by pivot
+    det *= A[i][i];
+
+    // Normalize pivot row
+    const pivotVal = A[i][i];
+    for (let k = i; k < n; k++) {
+      A[i][k] /= pivotVal;
+    }
+
+    // Eliminate other rows
+    for (let j = 0; j < n; j++) {
+      if (j !== i) {
+        const factor = A[j][i];
+        for (let k = i; k < n; k++) {
+          A[j][k] -= factor * A[i][k];
+        }
+      }
+    }
+  }
+
+  // Round to 4 decimal digits if not integer
+  const rounded = Math.round(det * 10000) / 10000;
+  return Number.isInteger(rounded) ? rounded : parseFloat(rounded.toFixed(4));
+}
+
 calResult.addEventListener('click', ()=>
 {
 	switch(currentOperation)
@@ -500,6 +549,18 @@ calResult.addEventListener('click', ()=>
 			break;
 
 		case 'Determinante':
+
+			const arrayAd = readMatrixFromGrid(operandAGrid, currentSize);
+			if(arrayAd === undefined)
+			{
+				window.alert('Entrada invalida. Las matrices deben contener numeros');
+			}
+			else
+			{
+				const det = determinanteGaussJordan(arrayAd);
+				const resultInput = resultGrid.querySelector('input');
+				resultInput.value = String(det);
+			}
 			break;
 
 		case 'Inversa':
