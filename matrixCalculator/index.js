@@ -381,7 +381,7 @@ function writeMatrixToGrid(grid, matrix)
 	}
 }
 
-function determinanteGaussJordan(matrix) {
+function determinanteGauss(matrix) {
   const n = matrix.length;
   //copy
   const A = matrix.map(row => row.slice());
@@ -428,6 +428,81 @@ function determinanteGaussJordan(matrix) {
   // Round to 4 decimal digits if not integer
   const rounded = Math.round(det * 10000) / 10000;
   return Number.isInteger(rounded) ? rounded : parseFloat(rounded.toFixed(4));
+}
+
+function inverseGaussJordan(matrix) { // matrix is invertible
+  const n = matrix.length;
+
+  // [A | I]
+  const A = [];
+  for (let i = 0; i < n; i++) 
+{
+    const row = [];
+    //original values
+    for (let j = 0; j < n; j++) {
+      row.push(matrix[i][j]);
+    }
+    //identity part
+    for (let j = 0; j < n; j++) {
+      row.push(i === j ? 1 : 0);
+    }
+    A.push(row);
+  }
+
+  // Gauss–Jordan elimination
+  for (let i = 0; i < n; i++) {
+    // Find pivot
+    let pivotRow = i;
+    for (let j = i + 1; j < n; j++) 
+	{
+      if (Math.abs(A[j][i]) > Math.abs(A[pivotRow][i]))
+	{
+        pivotRow = j;
+    }
+    }
+
+    // Swap rows if needed
+    if (pivotRow !== i)
+	{
+      const temp = A[i];
+      A[i] = A[pivotRow];
+      A[pivotRow] = temp;
+    }
+
+    const pivotVal = A[i][i];
+    for (let k = 0; k < 2 * n; k++)
+	{
+      A[i][k] /= pivotVal;
+    }
+
+    // Eliminate other rows
+    for (let j = 0; j < n; j++)
+	{
+      if (j !== i)
+	{
+        const factor = A[j][i];
+        for (let k = 0; k < 2 * n; k++)
+		{
+          A[j][k] -= factor * A[i][k];
+        }
+      }
+    }
+  }
+
+  // Extract inverse
+  const inverse = [];
+  for (let i = 0; i < n; i++) 
+{
+    const row = [];
+    for (let j = n; j < 2 * n; j++)
+	{
+      const val = Math.round(A[i][j] * 10000) / 10000;
+      row.push(Number.isInteger(val) ? val : parseFloat(val.toFixed(4)));
+    }
+    inverse.push(row);
+  }
+
+  return inverse;
 }
 
 calResult.addEventListener('click', ()=>
@@ -557,13 +632,28 @@ calResult.addEventListener('click', ()=>
 			}
 			else
 			{
-				const det = determinanteGaussJordan(arrayAd);
+				const det = determinanteGauss(arrayAd);
 				const resultInput = resultGrid.querySelector('input');
 				resultInput.value = String(det);
 			}
 			break;
 
 		case 'Inversa':
+			const arrayAi = readMatrixFromGrid(operandAGrid, currentSize);
+			if(arrayAi === undefined)
+			{
+				window.alert('Entrada invalida. Las matrices deben contener numeros');
+			}
+			else if(determinanteGauss(arrayAi) === 0)
+			{
+				window.alert("La matriz no es invertible (det (A) = 0)");
+				alterGrids();
+			}
+			else
+			{
+				const arrayResult = inverseGaussJordan(arrayAi);
+				writeMatrixToGrid(resultGrid, arrayResult);
+			}
 			break;
 
 		case 'Identidad':
