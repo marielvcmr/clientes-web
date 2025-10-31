@@ -274,7 +274,7 @@ multEscalarBtn.addEventListener('click', ()=>
 trasBtn.addEventListener('click', ()=>
 {
 	currentMode = 'single';
-	currentOperation = 'Transpuesta';
+	currentOperation = 'Traspuesta';
 	alterGrids();
 	operatorLabel.textContent = '';	
 	operatorLabel.style.fontSize = '25px';
@@ -386,9 +386,9 @@ calResult.addEventListener('click', ()=>
 	switch(currentOperation)
 	{
 		case 'Suma':
-			const arrayA = readMatrixFromGrid(operandAGrid, currentSize);
-			const arrayB = readMatrixFromGrid(operandBGrid, currentSize);
-			if(arrayA === undefined || arrayB === undefined)
+			const arrayAs = readMatrixFromGrid(operandAGrid, currentSize);
+			const arrayBs = readMatrixFromGrid(operandBGrid, currentSize);
+			if(arrayAs === undefined || arrayBs === undefined)
 			{
 				window.alert('Entrada invalida. Las matrices deben contener numeros');
 			}
@@ -399,7 +399,7 @@ calResult.addEventListener('click', ()=>
 				{
 					for(let j = 0; j<currentSize; j++)
 					{
-						arrayResult[i][j] = arrayA[i][j] + arrayB[i][j];
+						arrayResult[i][j] = arrayAs[i][j] + arrayBs[i][j];
 					}
 				}  // generates the arrayResult 
 
@@ -408,15 +408,77 @@ calResult.addEventListener('click', ()=>
 			break;
 
 		case 'Resta':
+			const arrayAr = readMatrixFromGrid(operandAGrid, currentSize);
+			const arrayBr = readMatrixFromGrid(operandBGrid, currentSize);
+			if(arrayAr === undefined || arrayBr === undefined)
+			{
+				window.alert('Entrada invalida. Las matrices deben contener numeros');
+			}
+			else
+			{
+				let arrayResult = createZeroMatrix(currentSize);
+				for (let i = 0; i<currentSize; i++)
+				{
+					for(let j = 0; j<currentSize; j++)
+					{
+						arrayResult[i][j] = arrayAr[i][j] - arrayBr[i][j];
+					}
+				}  // generates the arrayResult 
+
+				writeMatrixToGrid(resultGrid, arrayResult);
+			}
 			break;
 
 		case 'Multiplicacion':
+			const arrayAm = readMatrixFromGrid(operandAGrid, currentSize);
+			const arrayBm = readMatrixFromGrid(operandBGrid, currentSize);
+			if(arrayAm === undefined || arrayBm === undefined)
+			{
+				window.alert('Entrada invalida. Las matrices deben contener numeros');
+			}
+			else
+			{
+				let arrayResult = createZeroMatrix(currentSize);
+				const n = currentSize;
+				for (let i = 0; i < n; i++)
+				{
+	        		for (let j = 0; j < n; j++) 
+					{
+        			    let sum = 0;
+        			    for (let k = 0; k < n; k++)
+						{
+        			        sum += arrayAm[i][k] * arrayBm[k][j];
+        			    }
+        			    arrayResult[i][j] = sum;
+        			}
+				}
+				writeMatrixToGrid(resultGrid, arrayResult);
+			}
 			break;
 
 		case 'Multiplicacion Escalar':
+			const arrayAme = readMatrixFromGrid(operandAGrid, currentSize);
+			const arrayBme = readMatrixFromGrid(operandBGrid, 1);
+			if(arrayAme === undefined || arrayBme === undefined)
+			{
+				window.alert('Entrada invalida. Las matrices deben contener numeros');
+			}
+			else
+			{
+				let arrayResult = createZeroMatrix(currentSize);
+				for (let i = 0; i<currentSize; i++)
+				{
+					for(let j = 0; j<currentSize; j++)
+					{
+						arrayResult[i][j] = arrayAme[i][j]* arrayBme[0][0];
+					}
+				}  // generates the arrayResult 
+
+				writeMatrixToGrid(resultGrid, arrayResult);
+			}
 			break;
 
-		case 'Transpuesta':
+		case 'Traspuesta':
 			break;
 
 		case 'Determinante':
