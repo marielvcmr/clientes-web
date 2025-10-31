@@ -479,6 +479,24 @@ calResult.addEventListener('click', ()=>
 			break;
 
 		case 'Traspuesta':
+			const arrayAt = readMatrixFromGrid(operandAGrid, currentSize);
+			if(arrayAt === undefined)
+			{
+				window.alert('Entrada invalida. Las matrices deben contener numeros');
+			}
+			else
+			{
+				let arrayResult = createZeroMatrix(currentSize);
+				for (let i = 0; i<currentSize; i++)
+				{
+					for(let j = 0; j<currentSize; j++)
+					{
+						arrayResult[j][i] = arrayAt[i][j];
+					}
+				}  // generates the arrayResult 
+
+				writeMatrixToGrid(resultGrid, arrayResult);
+			}
 			break;
 
 		case 'Determinante':
@@ -488,6 +506,22 @@ calResult.addEventListener('click', ()=>
 			break;
 
 		case 'Identidad':
+			let arrayResult = createZeroMatrix(currentSize);
+			for (let i = 0; i<currentSize; i++)
+				{
+					for(let j = 0; j<currentSize; j++)
+					{
+						if(i === j)
+						{
+							arrayResult[i][j] = 1;
+						}
+						else
+						{
+							arrayResult[i][j] = 0;
+						}
+					}
+				} 
+				writeMatrixToGrid(resultGrid, arrayResult);
 			break;
 			
 		default:
