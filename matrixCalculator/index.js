@@ -96,6 +96,11 @@ function alterGrids(n = currentSize) {
                 grid.removeChild(grid.firstChild);
             }
 
+			if(currentOperation === 'Inversa')
+			{
+				operandBlabel.textContent = 'A x A⁻¹';
+			}
+
 		    // Special-case operandB when currentMode === 'scalar'
 		    if (grid === operandBGrid && currentMode === 'scalar') {
 
@@ -295,13 +300,13 @@ detBtn.addEventListener('click', ()=>
 
 invBtn.addEventListener('click', ()=>
 {
-	currentMode = 'single';
-	currentOperation = 'Inversa';
+	currentMode = 'default';
 	alterGrids();
 	operatorLabel.textContent = '';	
 	operatorLabel.style.fontSize = '25px';
 	operatorLabel.style.fontFamily = 'Arial Black';
 	resultLabel.textContent = 'A⁻¹';
+	operandBlabel.textContent = 'A x A⁻¹';
 });
 
 idBtn.addEventListener('click', ()=>
@@ -505,6 +510,25 @@ function inverseGaussJordan(matrix) { // matrix is invertible
   return inverse;
 }
 
+function matricesMultiplication(arrayA, arrayB)
+{
+	let arrayResult = createZeroMatrix(currentSize);
+	const n = currentSize;
+	for (let i = 0; i < n; i++)
+	{
+		for (let j = 0; j < n; j++) 
+		{
+    	    let sum = 0;
+    	    for (let k = 0; k < n; k++)
+			{
+    	        sum += arrayA[i][k] * arrayB[k][j];
+    	    }
+    	    arrayResult[i][j] = sum;
+    	}
+	}
+	return arrayResult;
+}
+
 calResult.addEventListener('click', ()=>
 {
 	switch(currentOperation)
@@ -562,21 +586,7 @@ calResult.addEventListener('click', ()=>
 			}
 			else
 			{
-				let arrayResult = createZeroMatrix(currentSize);
-				const n = currentSize;
-				for (let i = 0; i < n; i++)
-				{
-	        		for (let j = 0; j < n; j++) 
-					{
-        			    let sum = 0;
-        			    for (let k = 0; k < n; k++)
-						{
-        			        sum += arrayAm[i][k] * arrayBm[k][j];
-        			    }
-        			    arrayResult[i][j] = sum;
-        			}
-				}
-				writeMatrixToGrid(resultGrid, arrayResult);
+				writeMatrixToGrid(resultGrid, matricesMultiplication(arrayAm, arrayBm));
 			}
 			break;
 
@@ -650,9 +660,11 @@ calResult.addEventListener('click', ()=>
 				alterGrids();
 			}
 			else
-			{
+			{  // invertible
 				const arrayResult = inverseGaussJordan(arrayAi);
 				writeMatrixToGrid(resultGrid, arrayResult);
+				const multAinv = matricesMultiplication(arrayAi, arrayResult);
+				writeMatrixToGrid(operandBGrid, multAinv);
 			}
 			break;
 
