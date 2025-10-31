@@ -7,9 +7,10 @@
 ```bash
 git clone https://github.com/marielvcmr/clientes-web.git
 ```
- ><https://github.com/marielvcmr/clientes-web.git>
 2. Desde la carpeta clientes-web abrir el siguiente file en el navegador:
->**matrixCalculator/index.html**
+```bash
+matrixCalculator/index.html
+```
 
 ## 💡 Funcionalidades:
  *Esta calculadora nos permite:*
@@ -35,3 +36,4 @@ git clone https://github.com/marielvcmr/clientes-web.git
   
 
  
+
