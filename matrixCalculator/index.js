@@ -15,6 +15,7 @@ const operandAGrid = document.getElementById('operand-A-grid');
 const operandA = document.getElementById('operand-A');
 const operandBGrid = document.getElementById('operand-B-grid');
 const operandBlabel = document.getElementById('op-B-label');
+const operandAlabel = document.getElementById('op-A-label');
 const operandB = document.getElementById('operand-B');
 const resultGrid = document.getElementById('result-grid');
 const resultLabel = document.getElementById('result-label');
@@ -66,6 +67,13 @@ function alterGrids(n = currentSize) {
 		n = currentSize;
 	}
 
+	//operand containers visible by default
+	operandA.style.display = '';
+	operandAlabel.textContent = 'Matriz A';
+
+	operandB.style.display = '';
+	operandBlabel.textContent = 'Matriz B';
+
 	const grids = [operandAGrid, operandBGrid, resultGrid];
 
 	grids.forEach(grid => 
@@ -79,7 +87,7 @@ function alterGrids(n = currentSize) {
 		    grid.style.display = 'grid';
 		    grid.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
             grid.style.gridTemplateRows = `repeat(${n}, 1fr)`;
-		    grid.style.gap = '6px';
+		    grid.style.gap = '5px';
 
 		    // remove existing children
 		    while (grid.firstChild) 
@@ -108,14 +116,11 @@ function alterGrids(n = currentSize) {
 		    	return;
 		    }
 
-            if(grid === operandBGrid && currentMode == 'single')
-            {
-                while (operandB.firstChild) 
-                {
-                    operandB.removeChild(operandB.firstChild);
-                }
-                return;
-            }
+			if (grid === operandBGrid && currentMode == 'single') {
+				operandB.style.display = 'none';
+				operandBlabel.textContent = '';
+				return;
+			}
 
 		    // For result grid in determinant mode, make 1x1
 		    if (grid === resultGrid && currentMode === 'det') {
@@ -124,16 +129,30 @@ function alterGrids(n = currentSize) {
 		    	const input = document.createElement('input');
 		    	input.type = 'text';
 		    	input.className = 'input-number';
+				input.style.width = '50px';
 		    	grid.appendChild(input);
 
-                //remove operands from B
-                while (operandB.firstChild) 
-                {
-                    operandB.removeChild(operandB.firstChild);
-                }
+				// hide operand B area (do not remove elements) so it can be restored later
+				operandB.style.display = 'none';
+				operandBlabel.textContent = '';
 
 		    	return;
 		    }
+
+			if(grid === operandAGrid && currentMode === 'unity')
+			{
+				operandA.style.display = 'none';
+				operandAlabel.textContent = '';
+                return;
+			}
+
+			if(grid === operandBGrid && currentMode === 'unity')
+			{
+				operandB.style.display = 'none';
+				operandBlabel.textContent = '';
+                return;
+			}
+
 
 		    /* if  grid was not operand-B in scalar or result in  det
                 the grid is filled with input cells as a matrix
@@ -156,7 +175,7 @@ function alterGrids(n = currentSize) {
 		    	grid.appendChild(input);
 		    }
 		   }
-		   return;
+
 	});
 }
 
