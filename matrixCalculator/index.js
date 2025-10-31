@@ -38,11 +38,14 @@ let currentMode = 'default';
 let currentSize = 2;
 
 //alterGrids: recreate the grids depending on current mode
-function alterDimensions(n = currentSize) {
+function alterGrids(n = currentSize) {
 
 	/*if n is not a valid integer in range, fall back 
     to currentSize (do not force 2)     CHANGEABLE*/
-	if (!Number.isInteger(n) || n < 2 || n > 10) n = currentSize;
+	if (!Number.isInteger(n) || n < 2 || n > 10) 
+	{
+		n = currentSize;
+	}
 
 	const grids = [operandAGrid, operandBGrid, resultGrid];
 
@@ -76,7 +79,6 @@ function alterDimensions(n = currentSize) {
 		    	const input = document.createElement('input');
 		    	input.type = 'text';
 		    	input.className = 'input-number';
-		    	input.value = '1';
 		    	input.style.width = '50px';
                 input.style.height = '50px'
 		    	wrapper.appendChild(input);
@@ -103,7 +105,6 @@ function alterDimensions(n = currentSize) {
 		    	const input = document.createElement('input');
 		    	input.type = 'text';
 		    	input.className = 'input-number';
-		    	input.value = '0';
 		    	grid.appendChild(input);
 
                 //remove operands from B
@@ -127,5 +128,25 @@ function alterDimensions(n = currentSize) {
 	});
 }
 
-currentMode = 'scalar'
-alterDimensions(8);
+//apply the dimension value (validate then alter or reset)
+function applyDimensionFromInput() {
+	const val = dimInput ? dimInput.value : null;
+	const n = validateDimension(val); // can be null or a valid integer number
+
+	if (!n)  // n = null --> invalid input
+    {
+		currentSize = 2;
+		if (dimInput) 
+		{					// set back to current size 2
+			dimInput.value = String(currentSize);
+		}
+		alterGrids();
+	} 
+	else 
+	{
+		// valid -> update currentSize and rebuild
+		currentSize = n;
+		if (dimInput) dimInput.value = String(n);
+		alterGrids();
+	}
+}
