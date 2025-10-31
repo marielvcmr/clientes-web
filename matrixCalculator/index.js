@@ -70,10 +70,14 @@ function alterGrids(n = currentSize) {
 
 	//operand containers visible by default
 	operandA.style.display = '';
-	operandAlabel.textContent = 'Matriz A';
-
 	operandB.style.display = '';
-	operandBlabel.textContent = 'Matriz B';
+
+    operandAlabel.textContent = 'Matriz A';
+    operandBlabel.textContent = 'Matriz B';
+	if (currentOperation === 'Inversa')
+	{
+		operandBlabel.textContent = 'A x A⁻¹';
+	}
 
 	const grids = [operandAGrid, operandBGrid, resultGrid];
 
@@ -95,11 +99,6 @@ function alterGrids(n = currentSize) {
             {
                 grid.removeChild(grid.firstChild);
             }
-
-			if(currentOperation === 'Inversa')
-			{
-				operandBlabel.textContent = 'A x A⁻¹';
-			}
 
 		    // Special-case operandB when currentMode === 'scalar'
 		    if (grid === operandBGrid && currentMode === 'scalar') {
@@ -223,8 +222,18 @@ resetBtn.addEventListener('click', () => {
 });
 
 genBtn.addEventListener('click', () => {
+
+	 if (currentOperation === 'Inversa') {
+        // fill only operand A
+        const entriesA = operandAGrid.querySelectorAll('input');
+        entriesA.forEach(entry => {
+            entry.value = String(Math.floor(Math.random() * 21) - 10);
+        });
+        return;
+    }
+
+	//default: fill all matrix entries
 	const matrixEntries = document.querySelectorAll('.matrix-entry');
-	
 	matrixEntries.forEach(entry => {
 		entry.value = String(Math.floor(Math.random() * 21)-10);
 	});
@@ -301,6 +310,7 @@ detBtn.addEventListener('click', ()=>
 invBtn.addEventListener('click', ()=>
 {
 	currentMode = 'default';
+	currentOperation = 'Inversa';
 	alterGrids();
 	operatorLabel.textContent = '';	
 	operatorLabel.style.fontSize = '25px';
