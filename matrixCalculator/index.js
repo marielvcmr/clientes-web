@@ -331,6 +331,10 @@ function isNumber(input)
 {
 	returnValue = null;
 	let trimmed = input.value.trim();
+	if(trimmed === '')
+	{
+		return returnValue;
+	}
 	let num = Number(trimmed);
 	if (!Number.isNaN(num))
 	{
@@ -346,11 +350,6 @@ function isNumber(input)
 function readMatrixFromGrid(grid, n) 
 {
 	const gridMatrix = createZeroMatrix(n);
-	if (!grid)
-	{
-		return gridMatrix;
-	}
-
 	const inputs = grid.querySelectorAll('input');
 	const inputCount = inputs.length;
 
@@ -375,8 +374,8 @@ function writeMatrixToGrid(grid, matrix)
 	const inputs = grid.querySelectorAll('input');
 	/*for a read grid, it's sure that its length 
 	is the result matrix length*/
-	for (let k = 0; k < n; k++) {
-		const row = Math.floor(k / n);
+	for (let k = 0; k < n*n; k++) {
+		const row = Math.floor(k /n);
 		const col = k % n;
 		inputs[k].value = String(matrix[row][col]);
 	}
@@ -387,6 +386,25 @@ calResult.addEventListener('click', ()=>
 	switch(currentOperation)
 	{
 		case 'Suma':
+			const arrayA = readMatrixFromGrid(operandAGrid, currentSize);
+			const arrayB = readMatrixFromGrid(operandBGrid, currentSize);
+			if(arrayA === undefined || arrayB === undefined)
+			{
+				window.alert('Entrada invalida. Las matrices deben contener numeros');
+			}
+			else
+			{
+				let arrayResult = createZeroMatrix(currentSize);
+				for (let i = 0; i<currentSize; i++)
+				{
+					for(let j = 0; j<currentSize; j++)
+					{
+						arrayResult[i][j] = arrayA[i][j] + arrayB[i][j];
+					}
+				}  // generates the arrayResult 
+
+				writeMatrixToGrid(resultGrid, arrayResult);
+			}
 			break;
 
 		case 'Resta':
