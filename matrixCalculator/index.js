@@ -368,6 +368,20 @@ function readMatrixFromGrid(grid, n)
 	return gridMatrix;
 }
 
+/* types a matrix array in a matrix grid*/
+function writeMatrixToGrid(grid, matrix) 
+{
+	const n = matrix.length;
+	const inputs = grid.querySelectorAll('input');
+	/*for a read grid, it's sure that its length 
+	is the result matrix length*/
+	for (let k = 0; k < n; k++) {
+		const row = Math.floor(k / n);
+		const col = k % n;
+		inputs[k].value = String(matrix[row][col]);
+	}
+}
+
 calResult.addEventListener('click', ()=>
 {
 	switch(currentOperation)
