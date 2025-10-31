@@ -1,6 +1,7 @@
 const dimInput = document.getElementById('matrix-dim');
 const genBtn = document.getElementById('generar-matrix-btn');
 const resetBtn = document.getElementById('reset-btn');
+const calResult = document.getElementById('result-btn');
 
 const sumBtn = document.getElementById('suma-btn');
 const restaBtn = document.getElementById('resta-btn');
@@ -312,4 +313,91 @@ idBtn.addEventListener('click', ()=>
 	operatorLabel.style.fontSize = '25px';
 	operatorLabel.style.fontFamily = 'Arial Black';
 	resultLabel.textContent = 'I';
+});
+
+function createZeroMatrix(n)  /*returns square array matrix with zero's*/
+{
+	const m = new Array(n);
+	for (let i = 0; i < n; i++) // adds rows
+	{
+		m[i] = new Array(n).fill(0);
+	}
+	return m;
+}
+
+/*returns null if input is invalid, and the number 
+if input is valid*/ 
+function isNumber(input)
+{
+	returnValue = null;
+	let trimmed = input.value.trim();
+	let num = Number(trimmed);
+	if (!Number.isNaN(num))
+	{
+		returnValue = num;
+	}
+	return returnValue;
+}
+
+/* returns the array with matrix elements
+	numbers if they are valid, and undefined if there is 
+	at least an invalid input
+*/
+function readMatrixFromGrid(grid, n) 
+{
+	const gridMatrix = createZeroMatrix(n);
+	if (!grid)
+	{
+		return gridMatrix;
+	}
+
+	const inputs = grid.querySelectorAll('input');
+	const inputCount = inputs.length;
+
+	for (let k = 0; k < inputCount; k++) {
+
+		const inValue = isNumber(inputs[k]);
+		if (inValue === null)
+		{
+			return;
+		}
+		const row = Math.floor(k / n);
+		const col = k % n;
+		gridMatrix[row][col] = inValue;
+	}
+	return gridMatrix;
+}
+
+calResult.addEventListener('click', ()=>
+{
+	switch(currentOperation)
+	{
+		case 'Suma':
+			break;
+
+		case 'Resta':
+			break;
+
+		case 'Multiplicacion':
+			break;
+
+		case 'Multiplicacion Escalar':
+			break;
+
+		case 'Transpuesta':
+			break;
+
+		case 'Determinante':
+			break;
+
+		case 'Inversa':
+			break;
+
+		case 'Identidad':
+			break;
+			
+		default:
+			break;
+	}
+
 });
