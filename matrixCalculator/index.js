@@ -24,7 +24,15 @@ function validateDimension(value)
         {
             return num;
         }
+		else
+		{
+			window.alert('n debe estar entre 2 y 10');
+		}
     }
+	else
+	{
+		window.alert('n debe ser un número entero entre 2 y 10');
+	}
     return null;
 }
 
@@ -150,3 +158,14 @@ function applyDimensionFromInput() {
 		alterGrids();
 	}
 }
+
+dimInput.addEventListener('change', () => applyDimensionFromInput());
+dimInput.addEventListener('keydown', (event)=>{
+
+	if(event.key === 'Enter')
+	{
+		event.preventDefault();
+		applyDimensionFromInput();
+	}
+
+});
