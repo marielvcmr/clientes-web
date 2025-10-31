@@ -8,9 +8,14 @@ const operandBGrid = document.getElementById('operand-B-grid');
 const operandBlabel = document.getElementById('op-B-label');
 const operandB = document.getElementById('operand-B');
 const resultGrid = document.getElementById('result-grid');
+const resultLabel = document.getElementById('result-label');
 const operatorLabel = document.getElementById('operator');
 const operationsContainer = document.getElementById('operations-tab');
 
+let currentMode = 'default';
+// current grid size (only changed by the dimension input). Default is 2.
+let currentSize = 2;
+let currentOperation = 'Suma';
 
 //validateDimension: returns integer n if valid, otherwise null
 function validateDimension(value) 
@@ -41,9 +46,6 @@ function validateDimension(value)
 'scalar' (A, result matrix and B is scalar), 
 'single' (A and result matrix, B is not included), 
 'det' (A matrix -> result 1x1)*/
-let currentMode = 'default';
-// current grid size (only changed by the dimension input). Default is 2.
-let currentSize = 2;
 
 //alterGrids: recreate the grids depending on current mode
 function alterGrids(n = currentSize) {
@@ -185,6 +187,7 @@ dimInput.addEventListener('keydown', (event)=>{
 resetBtn.addEventListener('click', () => {
 	applyDimensionFromInput();
 });
+
 genBtn.addEventListener('click', () => {
 	const matrixEntries = document.querySelectorAll('.matrix-entry');
 	
@@ -192,3 +195,91 @@ genBtn.addEventListener('click', () => {
 		entry.value = String(Math.floor(Math.random() * 21)-10);
 	});
 });
+
+function sumaLayout()
+{
+	currentMode = 'default';
+	currentOperation = 'Suma';
+	alterGrids()
+}
+
+function restaLayout()
+{
+	currentMode = 'default';
+	currentOperation = 'Resta';
+	alterGrids()
+	operatorLabel.textContent = '-';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontWeight = 800;
+	resultLabel.textContent = 'A - B ';
+}
+
+function multiplicacionLayout()
+{
+	currentMode = 'default';
+	currentOperation = 'Multiplicacion';
+	alterGrids();
+	operatorLabel.textContent = 'x';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontFamily = 'Arial Black';
+	operatorLabel.style.fontWeight = 200;
+	resultLabel.textContent = 'A x B ';
+}
+
+function multiplicacionEscalarLayout()
+{
+	currentMode = 'scalar';
+	currentOperation = 'Multiplicacion Escalar';
+	alterGrids();
+	operatorLabel.textContent = 'x';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontFamily = 'Arial Black';
+	operatorLabel.style.fontWeight = 200;
+	resultLabel.textContent = 'A x B ';
+}
+
+function transpuestaLayout()
+{
+	currentMode = 'single';
+	currentOperation = 'Transpuesta';
+	alterGrids();
+	operatorLabel.textContent = '';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontFamily = 'Arial Black';
+	resultLabel.textContent = 'Aᵀ';
+}
+
+function determinanteLayout()
+{
+	currentMode = 'det';
+	currentOperation = 'Transpuesta';
+	alterGrids();
+	operatorLabel.textContent = '';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontFamily = 'Arial Black';
+	resultLabel.textContent = 'Det (A)';
+}
+
+function inversaLayout()
+{
+	currentMode = 'single';
+	currentOperation = 'Inversa';
+	alterGrids();
+	operatorLabel.textContent = '';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontFamily = 'Arial Black';
+	resultLabel.textContent = 'A⁻¹';
+}
+
+function identidadLayout()
+{
+	currentMode = 'single';
+	currentOperation = 'Identidad';
+	alterGrids();
+	operatorLabel.textContent = '';	
+	operatorLabel.style.fontSize = '25px';
+	operatorLabel.style.fontFamily = 'Arial Black';
+	resultLabel.textContent = 'I';
+}
+
+identidadLayout();
