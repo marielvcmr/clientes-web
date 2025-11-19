@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* layout the inner columns side-by-side */
+        #contenido {
+            display: flex;
+            gap: 18px;
+            align-items:center;
+            justify-content: space-between;
+            padding: 12px;
+            box-sizing: border-box;
+        }
+        #contenido .col {
+            flex: 1 1 0;
+            min-width: 180px;
+            background: rgba(0,0,0,0.03);
+            padding: 10px;
+            border-radius: 6px;
+        }
+        /* small screens: stack columns vertically */
+        @media (max-width: 640px) {
+            #contenido { flex-direction: column; }
+        }
+        h2
+        {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <section id = "contenido" class  = "contenido prueba">
+
+        <div class = "col">
+            <h2 id = "titulo">Listado de usuarios</h2>
+            <ul id = "lista-usuarios">
+                
+            </ul>
+        </div>
+
+        <div class = "col">
+            <h2 id = "titulo">Listado de Pokemon</h2>
+            <ul id = "lista-pokemon">
+                
+            </ul>
+        </div>
+
+        <div class = "col">
+            <h2 id = "titulo-2">Listado de productos</h2>
+            <ul id = "lista-productos">
+                
+            </ul>
+        </div>
+    </section>
+
+    <script src = "index.js"></script>
+    <script src = "usuarios.js"></script>
+    <script src = "pokemon.js"></script>
+    <script src = "productos.js"></script>
+</body>
+</html>
