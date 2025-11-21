@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #384259;
+  
+}
+
+#main-header {
+    background-color: black;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    font-family:'lexend zetta' ;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 25px;
+    letter-spacing: 10px;
+    height: 60px;
+    width:auto;
+    min-width: 100%;
+    box-sizing: content-box;
+}
+
+/* Size and align header image (logo) */
+#main-header img {
+    height: 50px; /* change this value to resize */
+    width: auto;
+    vertical-align: middle;
+}

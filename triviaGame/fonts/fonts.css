@@ -1,0 +1,9 @@
+@font-face{
+    font-family:'lexend zetta';
+    src:url("./lexend/LexendZetta-VariableFont_wght.ttf") format(truetype);
+
+}
+@font-face{
+    font-family:JetBrains;
+    src:url("./jetBrains/JetBrainsMono-VariableFont_wght.ttf") format(truetype);
+}
