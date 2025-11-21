@@ -13,31 +13,52 @@
         <img src = "./images/question-mark.png" title = "logo" alt = "Sorry, we could not retrieve this image">
     </div>
 
-    <div id = "personal-info">
-        <div id = "personal-questions">
-            <label for="nombre">Nombre del jugador</label>
-            <input type="text" id="nombre" class="input-value" maxlength = "20" placeholder = "Ingresa tu nombre" style="margin-bottom: 30px; font-family: JetBrains; text-align: center; color:white"><br>
+    <div id = "main-screen" class = "screen">
+        <div id = "personal-info">
+            <div id = "personal-questions">
+                <label for="nombre">Nombre del jugador</label>
+                <input type="text" id="nombre" class="input-value" maxlength = "20" placeholder = "Ingresa tu nombre" style="margin-bottom: 30px; font-family: JetBrains; text-align: center; color:white"><br>
 
-            <label for="preguntas">Preguntas a responder</label>
-            <input type="number" id="preguntas" class="input-value" value =5 min=5 max=20 style="margin-bottom: 30px; width:50px; text-align: center; font-size: 20px; color: white; font-family: JetBrains;"><br>
+                <label for="preguntas">Preguntas a responder</label>
+                <input type="number" id="preguntas" class="input-value" value =5 min=5 max=20 style="margin-bottom: 30px; width:50px; text-align: center; font-size: 20px; color: white; font-family: JetBrains;"><br>
 
-            <label for="nombre">Categoria de las preguntas</label>
-            <input type="button"  ><br>
+                <label for="categoria">Categoria de las preguntas</label>
+                <select id = "categoria" name = "categoria" class = "input-value" style = "font-family: JetBrains; font-size:10px; color:white; border-color: white;">
+                    <option value="" disabled selected>Elige  una categoría</option>
+                    <option value = "Mixta" style="color: black;"> Mixta</option>
+                    <option value = "Matematicas" style="color: black;">Matematicas</option>
+                    <option value = "Animales" style="color: black;">Animales</option>
+                    <option value = "Conocimiento General" style="color: black;">Conocimiento General</option>
+                    <option value = "Computadoras" style="color: black;">Computadoras</option>
+                    <option value = "Ciencia y Naturaleza" style="color: black;">Ciencia y Naturaleza</option>
+                </select>
+            </div>
+            <div id="image">
+                <img src = "./images/brain.png" id = "brain" alt = "Sorry, we could not retrieve this image">
+            </div>
+            <div id = "dificultad-preguntas">Dificultad de las preguntas<br>
+                <input type="radio" id = "facil" name="dificultad" value="facil">
+                <label for = "facil">Facil</label>
+                <input type="radio" id = "medio" name="dificultad" value="medio">
+                <label for = "medio">Medio</label>
+                <input type="radio" id = "dificil" name="dificultad" value="dificil">
+                <label for = "dificil">Dificil</label>
+            </div>
         </div>
-        <div id="image">
-            <img src = "./images/brain.png" id = "brain" alt = "Sorry, we could not retrieve this image">
-        </div>
-        <div id = "dificultad-preguntas">Dificultad de las preguntas<br>
-            <input type="radio" id = "facil">
-            <label for = "easy">Facil</label>
-            <input type="radio" id = "medio">
-            <label for = "medio">Medio</label>
-            <input type="radio" id = "dificil">
-            <label for = "easy">Dificil</label>
-        </div>
+        <button id = "play" class = "any-button">¡PLAY!</button>
     </div>
 
-    <button id = "play" class = "any-button">¡PLAY!</button>
+    <div id = "game-screen" class = "screen hidden">
+
+        <div id = "boards-grid"></div>
+
+        </div>
+
+    </div>
+
+    <div id = "result-screen" class = "screen hidden"></div>
+
+
     
     <script src = "index.js"></script>
 
