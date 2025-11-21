@@ -8,7 +8,15 @@ const listaUsuarios = document.querySelector("#lista-usuarios")
 
 fetch(urlUsuarios)
 .then(response=>response.json())
-.then(data=> {
-    console.log(data[0])
-})  //does it return an arrayList of jsons
+.then((data)=> {
+
+    data.forEach(usuario => {
+        const li = document.createElement("li");
+        li.innerHTML = usuario.name + "<br>Telefono: " + usuario.phone;
+        listaUsuarios.append(li);
+    });
+}) 
+
+
+
 
