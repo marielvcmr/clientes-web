@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Manrope';
+    src: url("../fonts/Manrope/Manrope-VariableFont_wght.ttf") format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Vujahday';
+    src: url("../fonts/Vujahday_Script/VujahdayScript-Regular.ttf") format('truetype');
+    font-weight: 600;
+}
