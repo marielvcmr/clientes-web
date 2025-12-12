@@ -156,7 +156,7 @@ async function loadCategorias(){// loads categories added
 
         setCategorias.innerHTML = "";
         allCategorias.forEach(categoria => {
-            if(categoria.nombre==="ALIMENTACION")
+            if(categoria.nombre ==="ALIMENTACION")
             {
               const CategoriaAlimentacion = new categoriaComponent("../categorias-images/alimentacion.png", "ALIMENTACIÓN", categoria.id);
               setCategorias.appendChild(CategoriaAlimentacion.render());
