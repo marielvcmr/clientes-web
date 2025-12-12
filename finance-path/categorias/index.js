@@ -1,5 +1,5 @@
 import { Header, SidebarItem } from "../componentes/index.js";
-import { openDB, getCategorias, deleteCategoria} from "../indexedDB/indexedDB.js";
+import { openDB, getCategorias} from "../indexedDB/indexedDB.js";
 
 class ButtonWithImage {
   constructor(label, link, onClick = null) {
@@ -89,6 +89,12 @@ class categoriaAdicionalComponent
         const imgDelete = document.createElement("img");
         imgDelete.classList.add("corner-icon");
         imgDelete.src = "../categorias-images/delete.png" || "";
+        imgDelete.addEventListener('click', (e) => {
+          
+          if (!window.confirm(`¿Seguro que deseas eliminar "${this.nombre}"?`)) return;
+          const idToDelete = this.id;
+          deleteCategoria(idToDelete);
+        });
 
         const imgEdit = document.createElement("img");
         imgEdit.classList.add("corner-icon");
@@ -114,7 +120,7 @@ class categoriaAdicionalComponent
 async function addCategoria(nombre) { // adds a category; accepts optional `nombre`
 
     // Expect caller to provide the category name; default to empty string when omitted
-    let categoriaTexto = String(nombre || '').trim();
+    let categoriaTexto = String(nombre || '').trim().toUpperCase();
     if (!categoriaTexto) return alert("Por favor, ingresa una categoría.");
     try {
         let db = await openDB();
@@ -199,6 +205,17 @@ async function loadCategorias(){// loads categories added
         console.error(error);
     }
 } 
+async function deleteCategoria(id) {
+    try {
+        let db = await openDB();
+        let transaction = db.transaction(["categorias"], "readwrite");
+        let store = transaction.objectStore("categorias");
+        let request = store.delete(id);
+        request.onsuccess = () => loadCategorias();
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 // AddCategoriaModal component: a small window to add a category
 export class AddCategoriaModal {
