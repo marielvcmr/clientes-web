@@ -50,7 +50,8 @@ header{
 /* PANTALLA PRINCIPAL A LA DERECHA */
 .dashboard-screen {
   flex: 1;           /* Ocupar todo el espacio restante */
-  padding: 40px;
+  padding: 0px 40px;
+
   background: #f8f8f8;
   /*imagen*/ 
   background-image: url("../imgs/background.png");
@@ -62,8 +63,7 @@ header{
 /* WELCOME MESSAGE */
 .welcome-box {
   text-align: center;
-  padding: 20px;
-  margin-bottom: 10px;
+  padding: 5px;
   background: white;
   border-radius: 10px;
   font-family: Vujahday;
@@ -80,7 +80,8 @@ header{
   color: black;
   border-style: none;
   border-radius: 15px;
-  height: 30px;
+  height: 40px;
+  font-size: large;
   width: auto;
   text-align: center;
 }
@@ -94,7 +95,8 @@ header{
   color: #ffffff;
   border-style: none;
   border-radius: 15px;
-  height: 30px;
+  height: 40px;
+  font-size: large;
   width: auto;
   text-align: center;
   margin: 30px;
@@ -105,35 +107,43 @@ header{
     box-shadow 0.2s ease;
 }
 
-.btn:hover {
+.btn:hover{
     background-color: #3d4e51;     /* un poco más oscuro */
     transform: translateY(-3px); /* elevar */
     box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-  }
+}
 
-  .btn:active {
+.btn:active {
     transform: translateY(-1px); /* al hacer click, baja un poco */
-  }
+}
 
-
-
-
-.sidebar {
+.sidebar{
   background: #2ea5a8;
   display: flex;
   flex-direction: column;
-  justify-content: top;
-  align-items: center;  
+  justify-content: top; 
+  align-items: stretch;
+  text-align: center;  
 }
 
-
 .sidebar-item{
-  margin: 10px;
+  padding: 20px;
   font-family: Manrope;
   color: #ffffff;
   justify-content: center;
   align-items: center;
-  
+  font-size: large;
+
+  transition: 
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sidebar-item:hover {
+    background-color: #1c7b7d;     /* un poco más oscuro */
+    transform: translateY(-3px); /* elevar */
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
 }
 
 .dashboard-grid {
@@ -146,4 +156,9 @@ header{
   background: #e0e0e0;
   border-radius: 15px;
   padding: 20px;
+}
+
+a
+{
+  text-decoration: none;
 }

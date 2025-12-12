@@ -1,19 +1,8 @@
 //SidebarComponent
 class Sidebar {
-  constructor(items) {
+  constructor() {
     this.root = document.createElement("aside");
     this.root.className = "sidebar";
-
-    items.forEach(item => {
-      this.root.appendChild(this.createItem(item));
-    });
-  }
-
-  createItem(text) {
-    const el = document.createElement("div");
-    el.className = "sidebar-item";
-    el.textContent = text;
-    return el;
   }
   render(parent) {
     parent.appendChild(this.root);
@@ -150,14 +139,47 @@ const mainRow = document.createElement("div");
 mainRow.className = "main-row";
 app.appendChild(mainRow);
 
-// Sidebar a la izquierda
-const sidebar = new Sidebar([
-  "MAIN",
-  "CATEGORÍAS",
-  "TRANSACCIONES",
-  "PRESUPUESTOS"
-]);
-sidebar.render(mainRow);
+
+class SidebarItem {
+  constructor(title, link) {
+    this.title = title;
+    this.link = link;
+
+    // Crear elemento
+    this.root = document.createElement("a");
+    this.root.className = "sidebar-item";
+    this.root.href = this.link;        // <-- href correcto
+    this.root.textContent = this.title;
+    this.root.target = "_self";        // <-- target correcto
+  }
+  render(parent) {
+    parent.appendChild(this.root);
+  }
+}
+
+
+const sidebar=document.createElement("aside");
+sidebar.className = "sidebar";
+
+const main = new SidebarItem('MAIN', 'index.html');
+main.id='main';
+main.render(sidebar);
+
+const categorias = new SidebarItem('CATEGORIAS', '../categorias/index.html');
+categorias.id='categorias';
+categorias.render(sidebar);
+
+const transacciones = new SidebarItem('TRANSACCIONES', '../transacciones/index.html');
+transacciones.id='transacciones';
+transacciones.render(sidebar);
+
+const presupuestos = new SidebarItem('PRESUPUESTOS', '../presupuestos/index.html');
+presupuestos.id='presupuestos';
+presupuestos.render(sidebar);
+
+
+mainRow.appendChild(sidebar);
+
 
 // Pantalla principal a la derecha
 const dashboardScreen = document.createElement("div");
@@ -176,7 +198,7 @@ welcome.innerHTML = `
 dashboardScreen.appendChild(welcome);
 
 const Filters= document.createElement("div");
-Filters.style.className = "filtros";
+Filters.className = "filtros";
 
 dashboardScreen.appendChild(Filters);
 const años= primerosDiezDesde(2025);
