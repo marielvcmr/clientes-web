@@ -29,3 +29,41 @@
     text-align: center;
     margin-top: 10px;
 }
+
+.categoria-adicional-card
+{
+    padding-top: 0;
+    padding-right: 0;
+    width: 140px;
+    height: 120px;
+}
+
+.corner-icon
+{
+    width: 18px;
+    height: 18px;
+}
+
+.corner-icon:hover
+{
+    background-color: #218087;
+}
+
+.corner-icons-container {
+    display: flex;
+    flex-direction:row-reverse;
+    margin-bottom: 12px;
+}
+
+.img-adicional
+{
+    width: 70px;
+    height: 65px;
+    margin-left: 25px;
+}
+
+.nombre-adicional
+{
+    margin-right: 20px;
+    text-align: center;
+}
