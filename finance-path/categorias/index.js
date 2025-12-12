@@ -1,5 +1,5 @@
 import { Header, SidebarItem } from "../componentes/index.js";
-import { openDB, getCategorias, loadCategorias, addCategori, deleteCategoria} from "../componentes/index.js";
+import { openDB, getCategorias, deleteCategoria} from "../indexedDB/indexedDB.js";
 
 class ButtonWithImage {
   constructor(label, link, onClick = null) {
@@ -111,6 +111,186 @@ class categoriaAdicionalComponent
     }
 }
 
+async function addCategoria(nombre) { // adds a category; accepts optional `nombre`
+
+    // Expect caller to provide the category name; default to empty string when omitted
+    let categoriaTexto = String(nombre || '').trim();
+    if (!categoriaTexto) return alert("Por favor, ingresa una categoría.");
+    try {
+        let db = await openDB();
+        let transaction = db.transaction(["categorias"], "readwrite");
+        let store = transaction.objectStore("categorias");
+        let request = store.add({ nombre: categoriaTexto });
+
+        request.onsuccess = () => {
+            loadCategorias();
+        };
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function loadCategorias(){// loads categories added
+    try{
+        let allCategorias = await getCategorias();
+        //let containerCategorias = document.getElementById("Categorias");
+
+        if (allCategorias.length === 0) {
+            setCategorias.innerHTML = "<p>No hay Categorias</p>";
+            return;
+        }
+
+        setCategorias.innerHTML = "";
+        allCategorias.forEach(categoria => {
+            if(categoria.nombre==="ALIMENTACION")
+            {
+              const CategoriaAlimentacion = new categoriaComponent("../categorias-images/alimentacion.png", "ALIMENTACIÓN", categoria.id);
+              setCategorias.appendChild(CategoriaAlimentacion.render());
+              return;
+            }
+            if(categoria.nombre==="TRANSPORTE")
+            {
+              const CategoriaTransporte = new categoriaComponent("../categorias-images/transporte.png", "TRANSPORTE", categoria.id);
+              setCategorias.appendChild(CategoriaTransporte.render());
+              return;
+            }
+
+            if(categoria.nombre==="OCIO")
+            {
+              const CategoriaOCIO = new categoriaComponent("../categorias-images/ocio.png", "OCIO", categoria.id);
+              setCategorias.appendChild(CategoriaOCIO.render());
+              return;
+            }
+
+            if(categoria.nombre==="SERVICIOS")
+            {
+              const categoriaSERVICIOS = new categoriaComponent("../categorias-images/servicios.png", "SERVICIOS", categoria.id);
+              setCategorias.appendChild(categoriaSERVICIOS.render());
+              return;
+            }
+
+            if(categoria.nombre==="SALUD")
+            {
+              const categoriaSALUD = new categoriaComponent("../categorias-images/salud.png", "SALUD", categoria.id);
+              setCategorias.appendChild(categoriaSALUD.render());
+              return;
+            }
+
+            if(categoria.nombre==="EDUCACION")
+            {
+              const categoriaEDUCACION = new categoriaComponent("../categorias-images/educacion.png", "EDUCACIÓN", categoria.id);
+              setCategorias.appendChild(categoriaEDUCACION.render());
+              return;
+            }
+
+            if(categoria.nombre==="OTROS")
+            {
+              const categoriaOTROS = new categoriaComponent("../categorias-images/otros.png", "OTROS", categoria.id);
+              setCategorias.appendChild(categoriaOTROS.render());
+              return;
+            }
+
+            let nombreCategoria = categoria.nombre.toUpperCase();
+            const nuevaCategoria = new categoriaAdicionalComponent(nombreCategoria, categoria.id);
+            setCategorias.appendChild(nuevaCategoria.render());
+        });
+    }
+    catch(error)
+    {
+        console.error(error);
+    }
+} 
+
+// AddCategoriaModal component: a small window to add a category
+export class AddCategoriaModal {
+  constructor(onSave = null) {
+    this.onSave = onSave; // callback that receives the new category name
+    this.root = null;
+  }
+
+  render(parent, anchor = null) {
+    // modal root
+    const modal = document.createElement('div');
+    modal.className = 'add-cat-modal';
+    modal.style.position = anchor ? 'absolute' : modal.style.position;
+
+    // header
+    const header = document.createElement('div');
+    header.className = 'modal-header';
+
+    const title = document.createElement('div');
+    title.className = 'modal-title';
+    title.innerHTML = `<span class="plus-icon">+</span> Añadir categoría`;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'modal-close';
+    closeBtn.innerHTML = '✕';
+    closeBtn.addEventListener('click', () => this.close());
+
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+
+    // body
+    const body = document.createElement('div');
+    body.className = 'modal-body';
+
+    const field = document.createElement('label');
+    field.className = 'modal-field';
+    field.innerHTML = `Nombre`;
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'modal-input';
+    input.placeholder = '';
+    field.appendChild(input);
+
+    body.appendChild(field);
+
+    // actions
+    const actions = document.createElement('div');
+    actions.className = 'modal-actions';
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'btn-guardar';
+    saveBtn.textContent = 'Guardar';
+    saveBtn.addEventListener('click', () => {
+      const val = input.value.trim();
+      if (!val)
+        {
+          window.alert('Por favor, ingresa un nombre para la categoría.');
+          return input.focus(); 
+        } 
+      if (typeof this.onSave === 'function') this.onSave(val);
+      this.close();
+    });
+
+    actions.appendChild(saveBtn);
+
+    modal.appendChild(header);
+    modal.appendChild(body);
+    modal.appendChild(actions);
+
+    // attach to parent and keep reference
+    // If an anchor is provided we append to document.body and position beside the anchor.
+    if (anchor && anchor.getBoundingClientRect) {
+      document.body.appendChild(modal);
+      const rect = anchor.getBoundingClientRect();
+      // place to the right of the anchor with a small gap
+      modal.style.top = (rect.top + window.scrollY) + 'px';
+      modal.style.left = (rect.right + 8 + window.scrollX) + 'px';
+      modal.style.zIndex = 9999;
+    } else {
+      parent.appendChild(modal);
+    }
+    this.root = modal;
+    // focus input
+    input.focus();
+  }
+
+  close() {
+    if (this.root && this.root.parentNode) this.root.parentNode.removeChild(this.root);
+    this.root = null;
+  }
+}
+
 //Composición final
 
 const appCat = document.getElementById("appCat");
@@ -154,35 +334,17 @@ mainRow.appendChild(dashboardScreen);
 const masCategoria = document.createElement("div");
 masCategoria.className= 'masCategoria';
 const setCategorias = document.createElement("div");
-setCategorias.className = "categorias-grid"
+setCategorias.className= 'categorias-grid';
+
+const modal = new AddCategoriaModal((newCatName) => {addCategoria(newCatName);});
+const masCategoriaBtn = new ButtonWithImage('Añadir categoría','../imgs/plus.png', 
+    () => { modal.render(document.body, masCategoriaBtn.root); 
+  });
+masCategoriaBtn.render(masCategoria);
 
 dashboardScreen.appendChild(masCategoria);
-dashboardScreen.appendChild(setCategorias)
-
-const masCategoriaBtn= new ButtonWithImage('Añadir categoría','../imgs/plus.png', ()=>{window.alert("Anadir")});
-masCategoriaBtn.render(masCategoria);
+dashboardScreen.appendChild(setCategorias);
 // main view
 //----------------------------
 // specific components 
-
-
-const CategoriaAlimentacion = new categoriaComponent("../categorias-images/alimentacion.png", "ALIMENTACIÓN", "alimentacion");
-const CategoriaTransporte = new categoriaComponent("../categorias-images/transporte.png", "TRANSPORTE", "transporte");
-const CategoriaOCIO = new categoriaComponent("../categorias-images/ocio.png", "OCIO", "ocio"); 
-const categoriaSERVICIOS = new categoriaComponent("../categorias-images/servicios.png", "SERVICIOS", "servicios");
-const categoriaSALUD = new categoriaComponent("../categorias-images/salud.png", "SALUD", "salud");
-const categoriaEDUCACION = new categoriaComponent("../categorias-images/educacion.png", "EDUCACIÓN", "educacion");
-const categoriaOTROS = new categoriaComponent("../categorias-images/otros.png", "OTROS", "otros");
-const categoriaADICIONAL = new categoriaAdicionalComponent("NUEVO", "nueva");
-const CategoriaAdicionalComponent = new categoriaAdicionalComponent("NUEVOAA", "nueva");
-
-setCategorias.appendChild(CategoriaAlimentacion.render());
-setCategorias.appendChild(CategoriaTransporte.render());
-setCategorias.appendChild(CategoriaOCIO.render());
-setCategorias.appendChild(categoriaSERVICIOS.render());
-setCategorias.appendChild(categoriaSALUD.render());
-setCategorias.appendChild(categoriaEDUCACION.render());
-setCategorias.appendChild(categoriaOTROS.render());
-
-setCategorias.appendChild(categoriaADICIONAL.render());
-setCategorias.appendChild(CategoriaAdicionalComponent.render());
+loadCategorias();

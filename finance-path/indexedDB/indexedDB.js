@@ -1,7 +1,7 @@
 let db;
 
 //open database
-function openDB() {
+export function openDB() {
 
     return new Promise((resolve, reject) => {
 
@@ -18,7 +18,7 @@ function openDB() {
     });
 }
 
-function getCategorias()
+export function getCategorias()
 {
     return new Promise(async (resolve, reject) => {
         try {
@@ -33,10 +33,10 @@ function getCategorias()
         }
     });
 }
-async function loadCategorias(){// loads categories added
+export async function loadCategorias(){// loads categories added
     try{
         let allCategorias = await getCategorias();
-        let containerCategorias = document.getElementById("Categorias");
+        //let containerCategorias = document.getElementById("Categorias");
 
         if (allCategorias.length === 0) {
             containerCategorias.innerHTML = "<p>No hay Categorias</p>";
@@ -65,8 +65,10 @@ async function loadCategorias(){// loads categories added
         console.error(error);
     }
 } 
-async function addCategoria(){ // adds a category
-    let categoriaTexto = document.getElementById("categoria-input").value.trim();
+export async function addCategoria(nombre) { // adds a category; accepts optional `nombre`
+
+    // Expect caller to provide the category name; default to empty string when omitted
+    let categoriaTexto = String(nombre || '').trim();
     if (!categoriaTexto) return alert("Por favor, ingresa una categoría.");
     try {
         let db = await openDB();
@@ -75,15 +77,14 @@ async function addCategoria(){ // adds a category
         let request = store.add({ nombre: categoriaTexto });
 
         request.onsuccess = () => {
-            document.getElementById("categoria-input").value = "";
             loadCategorias();
         };
     } catch (error) {
         console.error(error);
-        }
-} 
+    }
+}
 
-async function deleteCategoria(id) {
+export async function deleteCategoria(id) {
     try {
         let db = await openDB();
         let transaction = db.transaction(["categorias"], "readwrite");
@@ -104,7 +105,7 @@ async function deleteCategoria(id) {
 
 
 //--------------
-const anadirCategoriaBtn = document.getElementById("anadir-categoria-btn");
+/*const anadirCategoriaBtn = document.getElementById("anadir-categoria-btn");
 const categoriaInput = document.getElementById("categoria-input");
 const categoriaList = document.getElementById("Categorias");
 
@@ -112,5 +113,5 @@ const categoriaList = document.getElementById("Categorias");
 anadirCategoriaBtn.addEventListener("click", addCategoria);
 
 // Load categories on page load
-window.onload = loadCategorias;
+window.onload = loadCategorias;*/
 
