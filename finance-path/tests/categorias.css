@@ -1,0 +1,31 @@
+.categoria-card
+{
+    background-color: #2AA3AC;
+    width: 120px;
+    height: 100px;
+    padding: 20px;
+    margin: 5px;
+    cursor: pointer; 
+}
+
+.categoria-card:hover
+{
+    background-color: #4cc9d2;
+}
+
+.categoria-img
+{
+    width: 80px;
+    height: 75px;
+    display: block;
+    margin: auto;
+}
+
+.categoria-nombre
+{
+    font-family: 'Gill Sans';
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+}
