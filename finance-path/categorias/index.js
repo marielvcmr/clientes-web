@@ -1,5 +1,5 @@
 import { Header, SidebarItem } from "../componentes/index.js";
-import { openDB, getCategorias, deleteCategoria} from "../indexedDB/indexedDB.js";
+import { openDB, getCategorias } from "../indexedDB/indexedDB.js";
 
 class ButtonWithImage {
   constructor(label, link, onClick = null) {
@@ -89,10 +89,24 @@ class categoriaAdicionalComponent
         const imgDelete = document.createElement("img");
         imgDelete.classList.add("corner-icon");
         imgDelete.src = "../categorias-images/delete.png" || "";
+        imgDelete.addEventListener('click', (e) => {
+          
+          if (!window.confirm(`¿Seguro que deseas eliminar "${this.nombre}"?`)) return;
+          const idToDelete = this.id;
+          deleteCategoria(idToDelete);
+        });
 
         const imgEdit = document.createElement("img");
         imgEdit.classList.add("corner-icon");
         imgEdit.src = "../categorias-images/edit.png" || "";
+        imgEdit.addEventListener('click', (e) => {
+      
+          const editModal = new AddCategoriaModal((newName) => {
+            // update DB and reload
+            updateCategoria(this.id, String(newName).trim().toUpperCase());
+          });
+            editModal.render(document.body, null, this.nombre, 'Editar categoría', '../categorias-images/edit.png');
+        });
 
         const label = document.createElement("div");
         label.classList.add("categoria-nombre", "nombre-adicional");
@@ -111,10 +125,11 @@ class categoriaAdicionalComponent
     }
 }
 
+
 async function addCategoria(nombre) { // adds a category; accepts optional `nombre`
 
     // Expect caller to provide the category name; default to empty string when omitted
-    let categoriaTexto = String(nombre || '').trim();
+    let categoriaTexto = String(nombre || '').trim().toUpperCase();
     if (!categoriaTexto) return alert("Por favor, ingresa una categoría.");
     try {
         let db = await openDB();
@@ -199,6 +214,30 @@ async function loadCategorias(){// loads categories added
         console.error(error);
     }
 } 
+async function deleteCategoria(id) {
+    try {
+        let db = await openDB();
+        let transaction = db.transaction(["categorias"], "readwrite");
+        let store = transaction.objectStore("categorias");
+        let request = store.delete(id);
+        request.onsuccess = () => loadCategorias();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function updateCategoria(id, nombre) {
+  try {
+    let db = await openDB();
+    let transaction = db.transaction(["categorias"], "readwrite");
+    let store = transaction.objectStore("categorias");
+    const key = isNaN(Number(id)) ? id : Number(id);
+    const request = store.put({ id: key, nombre: String(nombre).trim() });
+    request.onsuccess = () => loadCategorias();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // AddCategoriaModal component: a small window to add a category
 export class AddCategoriaModal {
@@ -207,7 +246,7 @@ export class AddCategoriaModal {
     this.root = null;
   }
 
-  render(parent, anchor = null) {
+  render(parent, anchor = null, initialValue = '', titleText = 'Añadir categoría', iconSrc = null) {
     // modal root
     const modal = document.createElement('div');
     modal.className = 'add-cat-modal';
@@ -219,7 +258,12 @@ export class AddCategoriaModal {
 
     const title = document.createElement('div');
     title.className = 'modal-title';
-    title.innerHTML = `<span class="plus-icon">+</span> Añadir categoría`;
+    if (iconSrc) {
+      // show provided image icon (e.g., edit pencil)
+      title.innerHTML = `<img class="modal-icon" src="${iconSrc}" alt=""> ${titleText}`;
+    } else {
+      title.innerHTML = `<span class="plus-icon">+</span> ${titleText}`;
+    }
 
     const closeBtn = document.createElement('button');
     closeBtn.className = 'modal-close';
@@ -241,6 +285,9 @@ export class AddCategoriaModal {
     input.type = 'text';
     input.className = 'modal-input';
     input.placeholder = '';
+    // limit input to 12 characters
+    input.maxLength = 12;
+    if (initialValue) input.value = String(initialValue).slice(0,12);
     field.appendChild(input);
 
     body.appendChild(field);
@@ -252,12 +299,12 @@ export class AddCategoriaModal {
     saveBtn.className = 'btn-guardar';
     saveBtn.textContent = 'Guardar';
     saveBtn.addEventListener('click', () => {
-      const val = input.value.trim();
-      if (!val)
-        {
+      // ensure trimmed and truncated to 12 chars on save
+      const val = String(input.value || '').trim().slice(0,12);
+      if (!val) {
           window.alert('Por favor, ingresa un nombre para la categoría.');
-          return input.focus(); 
-        } 
+          return input.focus();
+      }
       if (typeof this.onSave === 'function') this.onSave(val);
       this.close();
     });
@@ -278,7 +325,13 @@ export class AddCategoriaModal {
       modal.style.left = (rect.right + 8 + window.scrollX) + 'px';
       modal.style.zIndex = 9999;
     } else {
-      parent.appendChild(modal);
+      // center in viewport using fixed positioning
+      document.body.appendChild(modal);
+      modal.style.position = 'fixed';
+      modal.style.top = '50%';
+      modal.style.left = '50%';
+      modal.style.transform = 'translate(-50%, -50%)';
+      modal.style.zIndex = 9999;
     }
     this.root = modal;
     // focus input
@@ -337,8 +390,8 @@ const setCategorias = document.createElement("div");
 setCategorias.className= 'categorias-grid';
 
 const modal = new AddCategoriaModal((newCatName) => {addCategoria(newCatName);});
-const masCategoriaBtn = new ButtonWithImage('Añadir categoría','../imgs/plus.png', 
-    () => { modal.render(document.body, masCategoriaBtn.root); 
+  const masCategoriaBtn = new ButtonWithImage('Añadir categoría','../imgs/plus.png', 
+    () => { modal.render(document.body); 
   });
 masCategoriaBtn.render(masCategoria);
 

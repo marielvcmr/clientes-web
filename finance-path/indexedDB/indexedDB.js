@@ -1,7 +1,7 @@
 let db;
 
 //open database
-export function openDB() {
+/*export function openDB() {
 
     return new Promise((resolve, reject) => {
 
@@ -16,7 +16,75 @@ export function openDB() {
         request.onsuccess = () => resolve(request.result);
         request.onerror = () => reject("Error al abrir IndexedDB");
     });
+}*/
+
+/*
+get all categories from indexedDB
+if ALIMENTACION no esta add
+if TRANSPORTE no esta add
+if OCIO no esta add
+if SERVICIOS no esta add
+if SALUD no esta add
+if EDUCACION no esta add
+if OTROS no esta add
+*/
+
+export function openDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("FinanceDB", 1);
+
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+
+            // Crear stores solo si no existen
+            if (!db.objectStoreNames.contains("categorias")) {
+                db.createObjectStore("categorias", { keyPath: "id", autoIncrement: true });
+            }
+            if (!db.objectStoreNames.contains("transacciones")) {
+                db.createObjectStore("transacciones", { keyPath: "id", autoIncrement: true });
+            }
+            if (!db.objectStoreNames.contains("presupuestos")) {
+                db.createObjectStore("presupuestos", { keyPath: "id", autoIncrement: true });
+            }
+        };
+
+        request.onsuccess = () => {
+            const db = request.result;
+
+            const tx = db.transaction("categorias", "readwrite");
+            const store = tx.objectStore("categorias");
+
+            const defaults = [
+                "ALIMENTACION",
+                "TRANSPORTE",
+                "OCIO",
+                "SERVICIOS",
+                "SALUD",
+                "EDUCACION",
+                "OTROS"
+            ];
+
+            const req = store.getAll();
+
+            req.onsuccess = () => {
+                const existentes = req.result.map(c => c.nombre);
+
+                defaults.forEach(nombre => {
+                    if (!existentes.includes(nombre)) {
+                        store.add({ nombre });
+                    }
+                });
+
+                tx.oncomplete = () => resolve(db);
+            };
+
+            req.onerror = () => reject("Error leyendo categorías");
+        };
+
+        request.onerror = () => reject("Error al abrir la base de datos");
+    });
 }
+
 
 export function getCategorias()
 {
@@ -95,14 +163,6 @@ export async function deleteCategoria(id) {
         console.error(error);
     }
 }
-
-
-
-
-
-
-
-
 
 //--------------
 /*const anadirCategoriaBtn = document.getElementById("anadir-categoria-btn");
