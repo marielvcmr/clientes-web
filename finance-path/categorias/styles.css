@@ -163,6 +163,15 @@
     font-weight:700;
 }
 
+.add-cat-modal .modal-icon{
+    width:20px;
+    height:20px;
+    display:inline-block;
+    vertical-align:middle;
+    object-fit:contain;
+    margin-right:6px;
+}
+
 .add-cat-modal .modal-close{
     background:transparent;
     border: none;
