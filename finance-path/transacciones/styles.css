@@ -3,3 +3,69 @@
     padding: 20px 0px;
     justify-items: center;
 }
+
+.data-Trans
+{
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+
+    align-items:center;
+    justify-content: center;
+
+}
+
+
+.data-card
+{
+    display: flex;
+    flex-direction: column;
+    background-color: #C4E1E5;
+    border-radius: 15px;
+    height: 110px;
+    width: 150px;
+
+    align-items:center;
+    justify-content: flex-start;
+
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.title-card
+{
+    font-family: 'Maven Pro';
+    font-size: 30px;
+    color: black;
+    font-weight: normal;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.content-card
+{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Maven Pro';
+    font-weight:bolder;
+    font-size: 30px;
+    color: black;
+
+    margin-top: 0;
+    align-items:center;
+    justify-content:center;
+
+    gap: 15px;
+}
+
+.panel-Trans
+{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+
+    align-items:center;
+    justify-content: center;
+}

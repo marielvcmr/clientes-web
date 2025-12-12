@@ -9,3 +9,9 @@
     src: url("../fonts/Vujahday_Script/VujahdayScript-Regular.ttf") format('truetype');
     font-weight: 600;
 }
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../fonts/MavenPro/MavenPro-VariableFont_wght.ttf") format('truetype');
+    font-weight: 400;
+}

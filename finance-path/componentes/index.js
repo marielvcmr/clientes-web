@@ -158,3 +158,38 @@ export class Title {
     parent.appendChild(this.root);
   }
 }
+
+export class filterWithImage {
+  constructor(label, link, onClick = null) {
+    this.label = label;
+    this.link = link;
+    this.onClick = onClick;
+
+    // Crear raíz
+    this.root = document.createElement("div");
+    this.root.className = "filter-with-image"; // clase nueva
+
+    // Contenedor de la imagen
+    if (this.link) {
+      const img = document.createElement("img");
+      img.src = this.link;
+      img.alt = "";
+      //img.className = "btn-icon";
+      this.root.appendChild(img);
+    }
+
+    // Texto
+    const span = document.createElement("span");
+    span.textContent = this.label;
+    this.root.appendChild(span);
+
+    // Evento click si existe
+    this.root.addEventListener("click", this.onClick);
+    this.root.style.cursor = "pointer";
+  }
+
+  render(parent) {
+    parent.appendChild(this.root);
+  }
+  
+}

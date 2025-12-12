@@ -1,6 +1,48 @@
-import { Header, SidebarItem, Title } from "../componentes/index.js";
+import { Header, SidebarItem, Title, filterWithImage } from "../componentes/index.js";
+
+class dataCard {
+    constructor(name, number, imgLink) {
+        this.name = name;
+        this.number = number;
+        this.imgLink = imgLink;
+
+        // ----- ROOT -----
+        this.root = document.createElement('div');
+        this.root.className = 'data-card';
+
+        // ----- Título -----
+        const titleCard = document.createElement('div');
+        titleCard.textContent = this.name;
+        titleCard.className = 'title-card';
+
+        // ----- Contenido -----
+        const contentCard = document.createElement('div');
+        contentCard.className = 'content-card';
+
+        const imgData = document.createElement('img');
+        imgData.src = this.imgLink;
+
+        const numData = document.createElement('p');
+        numData.textContent = this.number;
+
+        // Armado visual
+        contentCard.appendChild(imgData);
+        contentCard.appendChild(numData);
+
+        // Agregar todo a la tarjeta
+        this.root.appendChild(titleCard);
+        this.root.appendChild(contentCard);
+    }
+
+    render(parent) {
+        parent.appendChild(this.root);
+    }
+}
 
 
+
+
+/////////PANTALLA//////////////////////////////////////////////
 const appTrans = document.getElementById("appTrans");
 
 new Header().render(appTrans);
@@ -52,4 +94,20 @@ dashboardScreen.appendChild(dataTrans);
 
 const panelTrans = document.createElement("div");
 panelTrans.className = "panel-Trans";
-dashboardScreen.appendChild(dataTrans);
+dashboardScreen.appendChild(panelTrans);
+
+///////////////////////data////////////////////////
+const ingresosCard = new dataCard('Ingresos', 50, '../imgs/ingreso1.png');
+ingresosCard.render(dataTrans);
+const egresosCard = new dataCard('Egresos', 50, '../imgs/egreso.png');
+egresosCard.render(dataTrans);
+const balanceCard = new dataCard('Balance', 50, '../imgs/balance.png');
+balanceCard.render(dataTrans);
+
+///////////////////////filters////////////////////////
+
+const Agregar = new filterWithImage('Agregar', '../imgs/add.png', ()=>{window.alert("Agregar");})
+Agregar.render(panelTrans);
+
+const Filtrar = new filterWithImage('Filtrar', '../imgs/filter1.png', ()=>{window.alert("Filtrar");})
+Filtrar.render(panelTrans);
