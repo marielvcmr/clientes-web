@@ -1,0 +1,79 @@
+.categoria-card
+{
+    background-color: #2AA3AC;
+    width: 120px;
+    height: 100px;
+    padding: 20px;
+    margin: 5px;
+    cursor: pointer; 
+}
+
+.categoria-card:hover
+{
+    background-color: #4cc9d2;
+}
+
+.categoria-img
+{
+    width: 80px;
+    height: 75px;
+    display: block;
+    margin: auto;
+}
+
+.categoria-nombre
+{
+    font-family: 'Gill Sans';
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.categoria-adicional-card
+{
+    padding-top: 0;
+    padding-right: 0;
+    width: 140px;
+    height: 120px;
+}
+
+.corner-icon
+{
+    width: 18px;
+    height: 18px;
+}
+
+.corner-icon:hover
+{
+    background-color: #218087;
+}
+
+.corner-icons-container {
+    display: flex;
+    flex-direction:row-reverse;
+    margin-bottom: 12px;
+}
+
+.img-adicional
+{
+    width: 70px;
+    height: 65px;
+    margin-left: 25px;
+}
+
+.nombre-adicional
+{
+    margin-right: 20px;
+    text-align: center;
+}
+
+.categorias-grid 
+{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 390px;
+    gap: 30px;
+    justify-items: center;
+    align-items: center;
+}
