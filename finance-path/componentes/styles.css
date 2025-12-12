@@ -99,6 +99,7 @@ header{
     box-shadow 0.2s ease;
 }
 
+
 .btn:hover{
     background-color: #3d4e51;     /* un poco más oscuro */
     transform: translateY(-3px); /* elevar */

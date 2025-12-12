@@ -1,0 +1,44 @@
+.btn-with-image {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  background-color: #52686B;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 8px 18px;
+
+  font-size: large;
+  font-family: 'Manrope';
+  font-weight: 100;
+  margin: 30px;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-with-image:hover {
+  background-color: #3d4e51;
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-with-image:active {
+  transform: translateY(-1px);
+}
+
+.btn-with-image .btn-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.masCategoria
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 5px;
+}
