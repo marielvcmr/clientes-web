@@ -116,9 +116,94 @@
 .categorias-grid 
 {
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    width: 390px;
-    gap: 30px;
+    grid-template-columns: repeat(4, auto);
+    width: 380px;
+    gap: 20px;
     justify-items: center;
     align-items: center;
+    margin:auto;
+    place-content: center;
 }
+
+/* Modal for adding a category */
+.add-cat-modal {
+    width: 360px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    background: #dff0f0; /* pale body color */
+    font-family: 'Manrope', sans-serif;
+    margin: 20px auto;
+}
+
+.add-cat-modal .modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#52686B; /* dark header */
+    color: #fff;
+    padding: 10px 14px;
+}
+
+.add-cat-modal .modal-title{
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.add-cat-modal .plus-icon{
+    width:20px;
+    height:20px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,0.6);
+    font-weight:700;
+}
+
+.add-cat-modal .modal-close{
+    background:transparent;
+    border: none;
+    color: #222;
+    width: 22px;
+    height: 22px;
+    border-radius:3px;
+    cursor:pointer;
+}
+
+.add-cat-modal .modal-body{
+    padding: 18px 20px;
+}
+
+.add-cat-modal .modal-field{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:700;
+    margin-bottom: 14px;
+}
+
+.add-cat-modal .modal-input{
+    flex:1;
+    padding:6px 8px;
+    border-radius:4px;
+    border:1px solid #ccc;
+}
+
+.add-cat-modal .modal-actions{
+    display:flex;
+    justify-content:center;
+    padding: 10px 0 18px 0;
+}
+
+.add-cat-modal .btn-guardar{
+    background:#52686B;
+    color:#fff;
+    border:none;
+    padding:8px 18px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
