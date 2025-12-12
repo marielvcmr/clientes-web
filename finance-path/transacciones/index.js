@@ -42,6 +42,10 @@ class dataCard {
 
 
 
+
+
+
+
 /////////PANTALLA//////////////////////////////////////////////
 const appTrans = document.getElementById("appTrans");
 
@@ -105,6 +109,22 @@ const balanceCard = new dataCard('Balance', 50, '../imgs/balance.png');
 balanceCard.render(dataTrans);
 
 ///////////////////////filters////////////////////////
+
+const searchBar = document.createElement('div');
+searchBar.className = 'search-bar';
+
+const lupa = document.createElement('img');
+lupa.src = "../imgs/search.png";  
+searchBar.appendChild(lupa);
+
+const textInput = document.createElement('input');
+textInput.type = 'text';         
+textInput.className = 'text-input';
+searchBar.appendChild(textInput);
+
+panelTrans.appendChild(searchBar);
+
+
 
 const Agregar = new filterWithImage('Agregar', '../imgs/add.png', ()=>{window.alert("Agregar");})
 Agregar.render(panelTrans);

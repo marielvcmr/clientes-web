@@ -61,7 +61,7 @@
 
 .panel-Trans
 {
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     flex-direction: row;
     gap: 10%;
@@ -69,3 +69,24 @@
     align-items:center;
     justify-content: center;
 }
+
+.search-bar
+{
+    display: flex;
+    flex-direction: row;
+
+    align-items:center;
+    justify-content: center;
+
+}
+
+.text-input
+{
+    background-color: #D9D9D9;
+    color: black;
+    border: 0 none transparent;
+    min-height: 30px;
+    width: auto;
+    border-radius: 15px;
+}
+
