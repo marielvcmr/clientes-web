@@ -1,0 +1,156 @@
+body {
+  display: grid;
+  margin: 0;
+}
+
+header{
+  background-color: #C4E1E5;
+  display: flex;
+  direction: row;
+  height: 180px;
+  width: auto;
+
+  align-items: center;
+  padding: 8px 16px; 
+  box-sizing: border-box;
+
+}
+
+.menu-icon 
+{ width:10 ; 
+  height: auto; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin-left: 15px;
+
+  overflow: hidden; /* oculta exceso si la imagen es grande */
+
+  
+}
+
+.logo 
+{ 
+  flex: 1 1 auto; 
+  text-align: center;
+  align-items: center; 
+  justify-content: center; 
+  font-weight: 700; 
+  letter-spacing: 2px; 
+}
+
+/* CONTENEDOR PRINCIPAL (SIDEBAR + PANTALLA) */
+.main-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+/* PANTALLA PRINCIPAL A LA DERECHA */
+.dashboard-screen {
+  flex: 1;           /* Ocupar todo el espacio restante */
+  padding: 0px 40px;
+
+  background: #f8f8f8;
+  /*imagen*/ 
+  background-image: url("../imgs/background.png");
+  background-size: cover;        /* Ajusta la imagen a todo el contenedor */
+  background-repeat: no-repeat;  /* Evita repetición */
+  background-position: center;   /* Centra la imagen */
+}
+
+
+.filters{
+  display: flex;
+  flex-direction: row;
+}
+
+.drop-down{
+  margin: 5px;
+  background-color: #C4E1E5;
+  color: black;
+  border-style: none;
+  border-radius: 15px;
+  height: 40px;
+  font-size: large;
+  width: auto;
+  text-align: center;
+}
+
+.filtros{
+  margin-left: 30px;
+}
+
+.btn{
+  background-color: #52686B;
+  color: #ffffff;
+  border-style: none;
+  border-radius: 15px;
+  height: 40px;
+  font-size: large;
+  width: auto;
+  text-align: center;
+  margin: 30px;
+
+  transition: 
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn:hover{
+    background-color: #3d4e51;     /* un poco más oscuro */
+    transform: translateY(-3px); /* elevar */
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn:active {
+    transform: translateY(-1px); /* al hacer click, baja un poco */
+}
+
+.sidebar{
+  background: #2ea5a8;
+  display: flex;
+  flex-direction: column;
+  justify-content: top; 
+  align-items: stretch;
+  text-align: center;  
+}
+
+.sidebar-item{
+  padding: 20px;
+  font-family: Manrope;
+  color: #ffffff;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+
+  transition: 
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sidebar-item:hover {
+    background-color: #1c7b7d;     /* un poco más oscuro */
+    transform: translateY(-3px); /* elevar */
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.chart-card {
+  background: #e0e0e0;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+a
+{
+  text-decoration: none;
+}
