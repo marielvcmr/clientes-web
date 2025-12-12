@@ -1,4 +1,4 @@
-import { Header, SidebarItem } from "../componentes/index.js";
+import { Header, SidebarItem, Title } from "../componentes/index.js";
 
 
 const appTrans = document.getElementById("appTrans");
@@ -38,3 +38,18 @@ const dashboardScreen = document.createElement("div");
 dashboardScreen.className = "dashboard-screen";
 mainRow.appendChild(dashboardScreen);
 //
+
+const startTrans = document.createElement("div");
+startTrans.className = "start-Trans";
+dashboardScreen.appendChild(startTrans);
+const startTransMsg = new Title('Transacciones');
+startTransMsg.render(startTrans);
+
+const dataTrans = document.createElement("div");
+dataTrans.className = "data-Trans";
+dashboardScreen.appendChild(dataTrans);
+
+
+const panelTrans = document.createElement("div");
+panelTrans.className = "panel-Trans";
+dashboardScreen.appendChild(dataTrans);

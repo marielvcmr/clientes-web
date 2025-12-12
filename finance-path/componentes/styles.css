@@ -155,3 +155,22 @@ a
 {
   text-decoration: none;
 }
+
+.title
+{
+  background-color: #2AAEAC;
+  color: white;
+  font-family: 'Manrope';
+  border-radius: 5px;
+  border-style: none;
+  font-size: x-large;
+
+  height: 60px ;
+  width: 200px;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+ 
+}

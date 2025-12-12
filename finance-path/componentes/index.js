@@ -143,3 +143,18 @@ export class SidebarItem {
     parent.appendChild(this.root);
   }
 }
+
+export class Title {
+  constructor(name) {
+    this.name = name;
+
+    // Crear el elemento raíz del componente
+    this.root = document.createElement('div');
+    this.root.textContent = this.name;
+    this.root.className = 'title';
+  }
+
+  render(parent) {
+    parent.appendChild(this.root);
+  }
+}
