@@ -119,8 +119,8 @@ class TablaTransacciones {
         <div class="col-monto">${item.monto}</div>
 
         <div class="col-acciones">
-            <span class="btn-accion btn-edit">✏️</span>
-            <span class="btn-accion btn-delete">❌</span>
+            <span class="btn-accion btn-edit"><img src = "../imgs/edit1.png"></span>
+            <span class="btn-accion btn-delete"><img src = "../imgs/delete1.png"></span>
         </div>
     `;
         return row;
@@ -195,7 +195,7 @@ const ingresosCard = new dataCard('Ingresos', 50, '../imgs/ingreso1.png');
 ingresosCard.render(dataTrans);
 const egresosCard = new dataCard('Egresos', 50, '../imgs/egreso.png');
 egresosCard.render(dataTrans);
-const balanceCard = new dataCard('Balance', 50, '../imgs/balance.png');
+const balanceCard = new dataCard('Balance', 0, '../imgs/balance.png');
 balanceCard.render(dataTrans);
 
 ///////////////////////filters////////////////////////
